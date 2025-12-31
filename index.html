@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ALLTAYF Market</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">a</div>
+      <div>
+        <div class="brand-name">ALLTAYF</div>
+        <div class="brand-sub">Market</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <label class="sr-only" for="country">Ülke</label>
+      <select id="country">
+        <option value="TR">Türkiye</option>
+        <option value="DE" selected>Almanya</option>
+        <option value="FR">Fransa</option>
+        <option value="UK">İngiltere</option>
+        <option value="RU">Rusya</option>
+      </select>
+
+      <button class="btn ghost" id="btnOrders">Siparişler</button>
+      <a class="btn primary" id="btnWhatsApp" href="#" target="_blank" rel="noreferrer">WhatsApp</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>market.alltayf.com</h1>
+      <p class="muted">Koyu tema + cam kartlar. Ülke seçince fiyat ve stok değişir.</p>
+
+      <div class="meta">
+        <div class="pill" id="metaCurrency">Para Birimi: €</div>
+        <div class="pill" id="metaWarehouse">Depo: Almanya</div>
+        <div class="pill" id="metaStock">Toplam Stok: 0</div>
+      </div>
+    </section>
+
+    <section class="grid" id="grid"></section>
+
+    <section class="summary">
+      <h2>Stok Özeti (Tüm Ülkeler)</h2>
+      <div class="summary-row" id="summaryRow"></div>
+    </section>
+
+    <dialog class="modal" id="ordersModal">
+      <form method="dialog" class="modal-inner">
+        <div class="modal-head">
+          <h3>Siparişler</h3>
+          <button class="btn ghost" aria-label="Kapat">Kapat</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="muted small">Demo: “Satın Al” stok düşürür, sipariş listesine ekler.</div>
+          <div class="orders" id="orders"></div>
+        </div>
+
+        <div class="modal-foot">
+          <button class="btn ghost" id="btnClearOrders">Siparişleri Sil</button>
+          <button class="btn primary">Tamam</button>
+        </div>
+      </form>
+    </dialog>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
