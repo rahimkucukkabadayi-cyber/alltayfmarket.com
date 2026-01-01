@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ALLTAYF Market</title>
+  <title>ALLTAYF Market — Fatura → Stok Demo</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -11,63 +11,85 @@
     <div class="brand">
       <div class="logo">a</div>
       <div>
-        <div class="brand-name">ALLTAYF</div>
-        <div class="brand-sub">Market</div>
+        <div class="brand-title">ALLTAYF</div>
+        <div class="brand-sub">Market · Fatura → Stok Demo</div>
       </div>
     </div>
 
     <div class="controls">
-      <label class="sr-only" for="country">Ülke</label>
-      <select id="country">
+      <select id="countrySelect" class="select">
         <option value="TR">Türkiye</option>
-        <option value="DE" selected>Almanya</option>
+        <option value="DE">Almanya</option>
         <option value="FR">Fransa</option>
-        <option value="UK">İngiltere</option>
         <option value="RU">Rusya</option>
+        <option value="UK">İngiltere</option>
       </select>
 
-      <button class="btn ghost" id="btnOrders">Siparişler</button>
-      <a class="btn primary" id="btnWhatsApp" href="#" target="_blank" rel="noreferrer">WhatsApp</a>
+      <button id="btnOrders" class="btn ghost">Log</button>
+      <a class="btn wa" id="btnWhatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </header>
 
-  <main class="wrap">
+  <main class="container">
     <section class="hero">
       <h1>market.alltayf.com</h1>
-      <p class="muted">Koyu tema + cam kartlar. Ülke seçince fiyat ve stok değişir.</p>
+      <p>Koyu tema + cam kartlar. Ülke seçince para birimi ve stok değişir. Fatura satırlarını yapıştır → stok eklenir.</p>
 
-      <div class="meta">
-        <div class="pill" id="metaCurrency">Para Birimi: €</div>
-        <div class="pill" id="metaWarehouse">Depo: Almanya</div>
-        <div class="pill" id="metaStock">Toplam Stok: 0</div>
+      <div class="pills">
+        <div class="pill"><span>Para:</span> <b id="pillCurrency">₺</b></div>
+        <div class="pill"><span>Depo:</span> <b id="pillWarehouse">—</b></div>
+        <div class="pill"><span>Toplam Stok:</span> <b id="pillTotalStock">0</b></div>
       </div>
     </section>
 
-    <section class="grid" id="grid"></section>
+    <section class="grid">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Fatura Yükle (Demo)</h2>
+          <div class="small muted">Şimdilik PDF değil: metin yapıştırıyoruz. Format örneği aşağıda.</div>
+        </div>
 
-    <section class="summary">
-      <h2>Stok Özeti (Tüm Ülkeler)</h2>
-      <div class="summary-row" id="summaryRow"></div>
+        <textarea id="invoiceInput" class="textarea" rows="10" placeholder="Örn:
+SKU: A-100 | Ürün: Alltayf Ürün 1 | Adet: 2 | Fiyat: 45
+SKU: A-200 | Ürün: Alltayf Ürün 2 | Adet: 3 | Fiyat: 37
+..."></textarea>
+
+        <div class="panel-actions">
+          <button id="btnParse" class="btn">Faturayı Oku</button>
+          <button id="btnApply" class="btn primary" disabled>Stoğa Ekle</button>
+          <button id="btnReset" class="btn danger">Sıfırla</button>
+        </div>
+
+        <div id="preview" class="preview">
+          <div class="muted">Önizleme burada görünecek…</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Ürünler</h2>
+          <div class="small muted">Seçili ülkenin stokları gösterilir.</div>
+        </div>
+
+        <div id="productsGrid" class="cards"></div>
+
+        <div class="summary">
+          <div class="summary-title">Stok Özeti (Tüm Ülkeler)</div>
+          <div id="summaryRow" class="chips"></div>
+        </div>
+      </div>
     </section>
 
-    <dialog class="modal" id="ordersModal">
-      <form method="dialog" class="modal-inner">
+    <section class="modal" id="ordersModal" aria-hidden="true">
+      <div class="modal-backdrop" data-close="1"></div>
+      <div class="modal-card">
         <div class="modal-head">
-          <h3>Siparişler</h3>
-          <button class="btn ghost" aria-label="Kapat">Kapat</button>
+          <h3>Log (Stok Hareketleri)</h3>
+          <button class="btn ghost" data-close="1">Kapat</button>
         </div>
-
-        <div class="modal-body">
-          <div class="muted small">Demo: “Satın Al” stok düşürür, sipariş listesine ekler.</div>
-          <div class="orders" id="orders"></div>
-        </div>
-
-        <div class="modal-foot">
-          <button class="btn ghost" id="btnClearOrders">Siparişleri Sil</button>
-          <button class="btn primary">Tamam</button>
-        </div>
-      </form>
-    </dialog>
+        <div id="ordersList" class="orders"></div>
+      </div>
+    </section>
   </main>
 
   <script src="app.js"></script>
